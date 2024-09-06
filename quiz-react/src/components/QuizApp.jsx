@@ -45,9 +45,29 @@ const quizData = [{
 
 
 function QuizApp(){
-    const [ques,setQues] = useState("")
-    const [answer,setAnswer] = useState("")
+    const [currentQuestionIndex,setCurrentQuestionIndex] = useState(0)
+    const [selectedanswer,setSelectedAnswer] = useState("")
 
+    const handleAnswerChange= (e)=> {
+        setSelectedAnswer(e.target.value)
+    }
+
+    const question = quizData(currentQuestionIndex)
+
+    const quizList = Object.keys(question).filter((key)=> key!='question' && key!='correct').map(option =>(
+        <li key={option}>
+            <label>
+                <input
+                type="radio"
+                name="quiz"
+                value={option}
+                checked= {selectedanswer === option}
+                onChange={handleAnswerChange}
+                />
+                question[option]
+            </label>
+        </li>
+    ))
     return (
         <>
         <div>
